@@ -107,7 +107,7 @@ else
   DRY="echo"
 fi
 
-gh_echo "::group::⤵️ Fetching the NetBox source code"
+#gh_echo "::group::⤵️ Fetching the NetBox source code"
 
 ###
 # Variables for fetching the NetBox source
@@ -125,7 +125,7 @@ if [ "${2}" != "--push-only" ] && [ -z "${SKIP_GIT}" ]; then
   REMOTE_EXISTS=$(git ls-remote --heads --tags "${URL}" "${NETBOX_BRANCH}" | wc -l)
   if [ "${REMOTE_EXISTS}" == "0" ]; then
     echo "❌ Remote branch '${NETBOX_BRANCH}' not found in '${URL}'; Nothing to do"
-    gh_echo "::set-output name=skipped::true"
+    #gh_echo "::set-output name=skipped::true"
     exit 0
   fi
   echo "🌐 Checking out '${NETBOX_BRANCH}' of NetBox from the url '${URL}' into '${NETBOX_PATH}'"
@@ -148,8 +148,8 @@ if [ "${2}" != "--push-only" ] && [ -z "${SKIP_GIT}" ]; then
   echo "✅ Checked out NetBox"
 fi
 
-gh_echo "::endgroup::"
-gh_echo "::group::🧮 Calculating Values"
+#gh_echo "::endgroup::"
+#gh_echo "::group::🧮 Calculating Values"
 
 ###
 # Determining the value for DOCKERFILE
@@ -205,7 +205,7 @@ fi
 ###
 # Variables for arch target
 ###
-DOCKER_BUILD_PLATFORMS="${DOCKER_BUILD_PLATFORMS-linux/amd64,linux/arm64}"
+DOCKER_BUILD_PLATFORMS="linux/arm64" #"${DOCKER_BUILD_PLATFORMS-linux/amd64,linux/arm64}"
 
 ###
 # Variables for tagging the docker image
@@ -232,14 +232,14 @@ DEFAULT_DOCKER_TARGETS=("main" "ldap")
 DOCKER_TARGETS=("${DOCKER_TARGET:-"${DEFAULT_DOCKER_TARGETS[@]}"}")
 echo "🏭 Building the following targets:" "${DOCKER_TARGETS[@]}"
 
-gh_echo "::endgroup::"
+#gh_echo "::endgroup::"
 
 ###
 # Build each target
 ###
 export DOCKER_BUILDKIT=${DOCKER_BUILDKIT-1}
 for DOCKER_TARGET in "${DOCKER_TARGETS[@]}"; do
-  gh_echo "::group::🏗 Building the target '${DOCKER_TARGET}'"
+  #gh_echo "::group::🏗 Building the target '${DOCKER_TARGET}'"
   echo "🏗 Building the target '${DOCKER_TARGET}'"
 
   ###
@@ -251,8 +251,8 @@ for DOCKER_TARGET in "${DOCKER_TARGETS[@]}"; do
   fi
   TARGET_DOCKER_TAG_PROJECT="${TARGET_DOCKER_TAG}-${PROJECT_VERSION}"
 
-  gh_env "FINAL_DOCKER_TAG=${TARGET_DOCKER_TAG_PROJECT}"
-  gh_echo "::set-output name=skipped::false"
+  #gh_env "FINAL_DOCKER_TAG=${TARGET_DOCKER_TAG_PROJECT}"
+  #gh_echo "::set-output name=skipped::false"
 
   ###
   # composing the additional DOCKER_SHORT_TAG,
@@ -399,5 +399,5 @@ for DOCKER_TARGET in "${DOCKER_TARGETS[@]}"; do
     fi
   fi
 
-  gh_echo "::endgroup::"
+  #gh_echo "::endgroup::"
 done

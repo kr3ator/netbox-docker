@@ -12,7 +12,6 @@ from dcim.models.device_component_templates import (
     PowerPortTemplate,
     RearPortTemplate,
 )
-
 from startup_script_utils import (
     load_yaml,
     pop_custom_fields,

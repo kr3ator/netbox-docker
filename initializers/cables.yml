@@ -1,15 +1,33 @@
 ## Required parameters for termination X ('a' or 'b'):
-##   termination_X_name - name of interface
-##   termination_X_device - name of the device interface belongs to
-##   termination_X_class - required if different than Interface which is the default
-## Supported termination classes: Interface, ConsolePort, ConsoleServerPort, FrontPort, RearPort
 ##
-## If termination is a circuit then the required parameter is termination_x_circuit.
+## ```
+##   termination_x_name -> name of interface
+##   termination_x_device -> name of the device interface belongs to
+##   termination_x_class -> required if different than 'Interface' which is the default
+## ```
+##
+## Supported termination classes: Interface, ConsolePort, ConsoleServerPort, FrontPort, RearPort, PowerPort, PowerOutlet
+##
+##
+## If a termination is a circuit then the required parameter is termination_x_circuit.
 ## Required parameters for a circuit termination:
+##
+## ```
 ## termination_x_circuit:
-##   term_side - termination side of a circuit. Must be A or B
-##   cid - circuit ID value
-##   site OR provider_network - name of Site or ProviderNetwork respectively. If both provided, Site takes precedence
+##   term_side -> termination side of a circuit. Must be A or B
+##   cid -> circuit ID value
+##   site OR provider_network -> name of Site or ProviderNetwork respectively. If both provided, Site takes precedence
+## ```
+##
+## If a termination is a power feed then the required parameter is termination_x_feed.
+##
+## ```
+##   termination_x_feed:
+##     name -> name of the PowerFeed object
+##     power_panel:
+##       name -> name of the PowerPanel the PowerFeed is attached to
+##       site -> name of the Site in which the PowerPanel is present
+## ```
 ##
 ## Any other Cable parameters supported by Netbox are supported as the top level keys, e.g. 'type', 'status', etc.
 ##
